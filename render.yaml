@@ -1,0 +1,15 @@
+# Render Blueprint for personal anisette-v3 (SideStore / iloader)
+# Docs: https://docs.sidestore.io/zh/docs/advanced/anisette
+version: "1"
+services:
+  - type: web
+    name: anisette-v3-server
+    runtime: image
+    image:
+      url: dadoum/anisette-v3-server
+    plan: free
+    region: singapore
+    # Prebuilt image defaults to 6969; Render requires $PORT
+    dockerCommand: /bin/sh -c "exec /opt/anisette-v3-server -n 0.0.0.0 -p ${PORT:-10000}"
+    healthCheckPath: /
+    autoDeploy: false

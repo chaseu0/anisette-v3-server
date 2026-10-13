@@ -32,6 +32,7 @@ RUN useradd -ms /bin/bash Alcoholic \
  && chmod -R +wx /opt/
 
 # Run the artefact
+# Cloud hosts (Render/Railway) inject PORT; default remains 6969 for local Docker.
 USER Alcoholic
 EXPOSE 6969
-ENTRYPOINT [ "/opt/anisette-v3-server" ]
+ENTRYPOINT ["/bin/sh", "-c", "exec /opt/anisette-v3-server -n 0.0.0.0 -p ${PORT:-6969}"]
